@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      .svetafor {
+        width: 400px;
+        height: 90vh;
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+        background: black;
+      }
+      .svetafor div {
+        width: 200px;
+        height: 200px;
+        background-color: black;
+        border: 2px solid rgb(255, 255, 255);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .svetafor div span {
+        color: white;
+        font-size: 30px;
+        font-weight: 900;
+      }
+      .svetafor .red {
+        background: red;
+        box-shadow: 0 0 100px 0 red;
+      }
+      .svetafor .yellow {
+        background: yellow;
+        box-shadow: 0 0 100px 0 yellow;
+      }
+      .svetafor .green {
+        background: green;
+        box-shadow: 0 0 100px 0 green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="svetafor">
+      <div id="red">
+        <span></span>
+      </div>
+      <div id="yellow">
+        <span></span>
+      </div>
+      <div id="green">
+        <span></span>
+      </div>
+    </div>
+
+    <script>
+      let trafficLight = document.querySelector('.svetafor')
+      let red = document.querySelector('#red');
+      let yellow = document.querySelector('#yellow');
+      let green = document.querySelector('#green');
+      let counter = 0;
+      function setIntervalCounter(color, endNumber) {
+        let counter = endNumber;
+        let RedCounter = document.querySelector(`#${color} span`);
+        let RedSetInterval = setInterval(() => {
+          counter--;
+
+          RedCounter.textContent = counter;
+          if (counter == 0) {
+            clearInterval(RedSetInterval);
+            RedCounter.style.display = 'none';
+          } else {
+            RedCounter.style.display = 'block';
+          }
+        }, 1000);
+      }
+      function redLight() {
+        setIntervalCounter('red', 6);
+        red.classList.add('red');
+        trafficLight.style.border = '10px solid red'
+        setTimeout(() => {
+          yellowLight();
+          red.classList.remove('red');
+        }, 6000);
+      }
+      function yellowLight() {
+        setIntervalCounter('yellow', 4);
+        trafficLight.style.border = '10px solid yellow'
+        yellow.classList.add('yellow');
+        setTimeout(() => {
+          greenLight();
+          yellow.classList.remove('yellow');
+        }, 4000);
+      }
+      function greenLight() {
+        green.classList.add('green');
+        trafficLight.style.border = '10px solid green'
+        setIntervalCounter('green', 6);
+        setTimeout(() => {
+          redLight();
+          green.classList.remove('green');
+        }, 6000);
+      }
+
+      redLight();
+    </script>
+  </body>
+</html>
